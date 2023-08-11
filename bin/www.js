@@ -1,13 +1,19 @@
 import app from '../app.js';
 import debug from 'debug';
 import http from 'http';
+import {connect} from 'mongoose';
 
 let port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 let server = http.createServer(app);
-let ready = ()=> console.log ('server ready on port '+port);
-
+let ready = ()=> {
+      console.log ('server ready on port '+port);
+      connect(process.env.LINK_DB)
+        .then(()=>{console.log("connected to db")})
+        .catch(err=>console.log(err))
+}
+  
 server.listen(port,ready);
 
 server.on('error', onError);
