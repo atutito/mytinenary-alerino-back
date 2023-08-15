@@ -1,6 +1,6 @@
 import User from "../../models/User.js"
 
-export default async(req,res)=>{
+export default async(req,res,next)=>{
     try{
       let deletedUser = await User.findByIdAndDelete(req.params.id)
       return res.status(200).json({
@@ -10,10 +10,6 @@ export default async(req,res)=>{
       })
     }
     catch(err){
-      return res.status(400).json({
-        success: false,
-        message: "user not deleted",
-        response: null
-      })
+      next(err)
     }
   }
