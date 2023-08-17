@@ -6,6 +6,7 @@ import path from 'path';
 import logger from 'morgan';
 import errorHandler from './middlewares/errorHandler.js';
 import notFoundHandler from './middlewares/notFoundHandler.js';
+import cors from 'cors'
 
 import indexRouter from "./routes/index.js"
 let app = express();
@@ -18,6 +19,7 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cors())
 app.use(express.static(path.join(__dirname, 'public')));
 
 
