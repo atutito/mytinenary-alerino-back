@@ -7,7 +7,7 @@ import destroy from '../controllers/users/destroy.js';
 
 let router = express.Router();
 
-router.post('/', create )
+router.post('/signup', create )
 router.get('/', read)
 router.get('/:user_id',readone)
 router.put('/:u_id', update)
