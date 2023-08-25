@@ -1,11 +1,11 @@
-import express from 'express';
+import {Router} from 'express';
 import create from '../controllers/itineraries/create.js';
 import read from '../controllers/itineraries/read.js';
 import readone from '../controllers/itineraries/readOne.js';
 import update from '../controllers/itineraries/update.js';
 import destroy from '../controllers/itineraries/destroy.js';
 
-let itineraryRouter = express.Router();
+let itineraryRouter = Router();
 
 itineraryRouter.post('/', create )
 itineraryRouter.get('/', read)

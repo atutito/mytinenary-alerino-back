@@ -1,7 +1,7 @@
 import 'dotenv/config.js'
 import {connect } from 'mongoose'
 import Itinerary from '../Itinerary.js'
-
+import City from '../City.js'
 
 const itineraries = [{
     name: 'Angkor Wats Temple Complex',
@@ -131,10 +131,20 @@ const itineraries = [{
     photo: 'https://i.im.ge/2022/08/31/OERMl1.salahCitadelCairoCity.png'
 }]
 
+async function createItineraries(arrayItineraries){
+    try {
+        await connect(process.env.LINK_DB)
+        for (let itinerary of arrayItineraries){
+            let city = await City.findOne({city:itinerary.city_id})
+            let city_id = await city._id
+            itinerary.city_id = city_id
+            await Itinerary.create(itinerary)
+        }
+        console.log('done')
 
-connect(process.env.LINK_DB)
-.then(() => {
-    Itinerary.insertMany(itineraries)
-    console.log('done')
+    } catch (error) {
+        console.log(error)
+    }
 }
-)
+
+createItineraries(itineraries)
