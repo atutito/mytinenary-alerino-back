@@ -2,7 +2,7 @@ import Itinerary from "../../models/Itinerary.js"
 
 export default async(req,res,next)=>{
     try{
-      let readOneItinerary = await Itinerary.findById({_id:req.params.itinerary_id}).select("city_id name photo")
+      let readOneItinerary = await Itinerary.findById({id:req.params._id}).select("city_id name photo")
       if(readOneItinerary){
       return res.status(200).json({
         success: true,

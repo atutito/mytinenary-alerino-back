@@ -2,7 +2,7 @@ import City from "../../models/City.js"
 
 export default async(req,res,next)=>{
     try{
-      let readOneCity = await City.findById({_id:req.params.city_id}).select("city country photo -_id")
+      let readOneCity = await City.findById({_id:req.params.city_id}).select("city country photo smalldescription -_id")
       if(readOneCity){
       return res.status(200).json({
         success: true,
