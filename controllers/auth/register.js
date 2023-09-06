@@ -1,6 +1,6 @@
-import User from "../../models/User.js"
+import User from "../../models/User.js";
 
-export default async (req,res,next)=>{
+export default async (req,res,next)=> {
     try {
         let one = await User.create(req.body)
         return res.status(201).json({
@@ -9,6 +9,6 @@ export default async (req,res,next)=>{
             response: one._id
         })
     } catch (error) {
-        console.log(error)
+        next(error)
     }
 }
