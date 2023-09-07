@@ -1,7 +1,10 @@
 import { Router } from "express";
+import passport from "passport";
 
 import register from "../controllers/auth/register.js";
 import signin from "../controllers/auth/signin.js";
+import token from "../controllers/auth/token.js";
+import signout from "../controllers/auth/signout.js";
 
 import isValidToken from "../middlewares/isValidToken.js";
 import isPassOk from "../middlewares/isPassOk.js";
@@ -29,6 +32,17 @@ authRouter.post(
   isPassOk,
   isValidToken,
   signin
+);
+authRouter.post(
+  "/token",
+  passport.authenticate("jwt", { session: false }),
+  isValidToken,
+  token
+);
+authRouter.post(
+  "/signout",
+  passport.authenticate("jwt", { session: false }),
+  signout
 );
 
 export default authRouter;
