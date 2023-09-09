@@ -9,16 +9,16 @@ let registerSchema = joi.object({
     .messages({
         'string.min': "name must have at least 3 characters please!",
         "string.max": "name must be less than 21 characters please!",
-        "any.required": "name is required", //para cuando NO se envía el dato
-        "string.empty": "name is required"  //para cuando se envía VACÍO
+        "any.required": "name is required",
+        "string.empty": "name is required"
     }),
     mail: joi
     .string()
     .required()
     .email()
     .messages({
-        "any.required": "e-mail is required", //para cuando NO se envía el dato
-        "string.empty": "e-mail is required"  //para cuando se envía VACÍO
+        "any.required": "e-mail is required",
+        "string.empty": "e-mail is required"
     }),
     password: joi.string().required(),
     country: joi.string().required(),
