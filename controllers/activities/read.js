@@ -1,30 +1,31 @@
-import City from "../../models/City.js";
+import Activity from "../../models/Activity.js"
 
 export default async (req,res,next) => {
     try {
-        let filtro = {}
-        let orden = {}
-        if (req.query.admin_id) {filtro.admin_id = req.query.admin_id}
-        if (req.query.city) {filtro.city = new RegExp(req.query.city,'i')}
-        if (req.query.sort) {orden.city = req.query.sort}
-        let readCities = await City
-            .find(filtro,'country city photo smalldescription admin_id')
-            .populate('admin_id','photo name mail -_id')
-            .sort(orden)
-        if (readCities.length>0) {
-            return res.status(200).json({
+        let queries = {}
+        if (req.query.itinerary_id) {queries.itinerary_id = req.query.itinerary_id}
+        let readActivities = await Activity
+            .find(queries,'-__v -createdAt -updatedAt')
+            .populate({path:'itinerary_id', select:"name photo city_id"} )
+            if (readActivities.length > 0) {
+                return res.status(200).json({
+                    success: true,
+                    message: 'activities found',
+                    response: readActivities
+                })
+            } else {
+                return res.status(404).json({
+                    success: false,
+                    message: 'activities not found',
+                    response: null
+            
+            /* return res.status(200).json({
                 success: true,
-                message: 'cities found',
-                response: readCities
-            })
-        } else {
-            return res.status(404).json({
-                success: false,
-                message: 'no cities found',
-                response: null
-            })
-        }
-    } catch (error) {
-        next(error)
+                message: 'activities found',
+                response: readActivities */
+            /* }) */
+            
+    })}} catch (error) {
+            next(error)
     }
 }

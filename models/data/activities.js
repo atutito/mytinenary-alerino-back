@@ -1,6 +1,7 @@
 import 'dotenv/config.js'
 import {connect } from 'mongoose'
 import Activity from '../Activity.js'
+import Itinerary from '../Itinerary.js'
 
 const activities = [{
     name: "Hikking Tour",
@@ -220,9 +221,21 @@ const activities = [{
     itinerary_id: "Adventure Time"
 }]
 
-connect(process.env.LINK_DB)
-.then(() => {
-    Activity.insertMany(activities)
-    console.log('done')
+
+async function createActivities(arrayActivities){
+    try {
+        await connect(process.env.LINK_DB)
+        for (let act of arrayActivities){
+            let city = await Itinerary.findOne({name:act.itinerary_id})
+            let city_id = await city._id
+            act.itinerary_id = city_id
+            await Activity.create(act)
+        }
+        console.log('done')
+
+    } catch (error) {
+        console.log(error)
+    }
 }
-)
+
+createActivities(activities)
