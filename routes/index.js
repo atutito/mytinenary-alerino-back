@@ -3,6 +3,7 @@ import userRouter from './users.js'
 import cityRouter from './cities.js'
 import itinerariesRouter from './itineraries.js';
 import authRouter from './auth.js';
+import likesRouter from "./likes.js";
 import activitiesRouter from './activities.js';
 
 let router = express.Router();
@@ -14,6 +15,7 @@ router.get('/', function(req, res, next) {
 router.use ('/users',userRouter)
 router.use ('/cities',cityRouter)
 router.use ('/itineraries', itinerariesRouter)
+router.use("/likes", likesRouter);
 router.use ('/activities', activitiesRouter)
 router.use ('/auth', authRouter)
 

@@ -13,7 +13,7 @@ export default passport.use(
       try {
         let user = await User.findOne(
           { mail: jwt_payload.mail },
-          "-_id -__v -password"
+          "-__v -password"
         );
         if (user) {
           return done(null, user);
