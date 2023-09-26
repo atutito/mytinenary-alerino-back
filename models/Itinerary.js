@@ -8,6 +8,7 @@ let schema = new Schema ({
     duration: {type:Number},
     tags: [{type:String}],
     photo: {type:String},
+    likes: { type:Number, required:true, default:0 },
 },{timestamps:true})
 
 let Itinerary = model(collection,schema)
